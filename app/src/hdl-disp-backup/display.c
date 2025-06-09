@@ -481,4 +481,4 @@ static int display_init () {
 }
 
 SYS_INIT(display_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
-K_THREAD_DEFINE(display_thr, 4096, display_thread, NULL, NULL, NULL, K_PRIO_PREEMPT(10), 0, 0);
+K_THREAD_DEFINE(display_thr, 4096, display_thread, NULL, NULL, NULL, K_PRIO_PREEMPT(10), 0, 0);uint32_t HDL_DATA_LEN = 0;

@@ -112,22 +112,22 @@ target_sources_ifdef(CONFIG_ZMK_RGB_UNDERGLOW app PRIVATE src/rgb_underglow.c)
 target_sources_ifdef(CONFIG_ZMK_BACKLIGHT app PRIVATE src/backlight.c)
 target_sources(app PRIVATE src/main.c)
 
-add_subdirectory(src/display/)
+# add_subdirectory(src/display/)
 # HDL
-add_subdirectory(src/hdl/)
+# # add_subdirectory(src/hdl/)
 
 # Add compiled images and pages
-if ((NOT CONFIG_ZMK_SPLIT) OR CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
-target_sources_ifdef(CONFIG_ZEPHYR_HDL app PRIVATE src/hdl-disp/compiled/display_right.c)
-elseif (CONFIG_ZMK_SPLIT)
-target_sources_ifdef(CONFIG_ZEPHYR_HDL app PRIVATE src/hdl-disp/compiled/display_left.c)
-endif()
+# if ((NOT CONFIG_ZMK_SPLIT) OR CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+# target_sources_ifdef(CONFIG_ZEPHYR_HDL app PRIVATE src/hdl-disp/compiled/display_right.c)
+# elseif (CONFIG_ZMK_SPLIT)
+# target_sources_ifdef(CONFIG_ZEPHYR_HDL app PRIVATE src/hdl-disp/compiled/display_left.c)
+# endif()
 
-target_sources_ifdef(CONFIG_ZEPHYR_HDL app PRIVATE src/hdl-disp/compiled/kb-icons.bmp.c)
-target_sources_ifdef(CONFIG_ZEPHYR_HDL app PRIVATE src/hdl-disp/compiled/kb-icons-big.bmp.c)
-target_sources_ifdef(CONFIG_ZEPHYR_HDL app PRIVATE src/hdl-disp/font.c)
+#target_sources_ifdef(CONFIG_ZEPHYR_HDL app PRIVATE src/hdl-disp/compiled/kb-icons.bmp.c)
+#target_sources_ifdef(CONFIG_ZEPHYR_HDL app PRIVATE src/hdl-disp/compiled/kb-icons-big.bmp.c)
+#target_sources_ifdef(CONFIG_ZEPHYR_HDL app PRIVATE src/hdl-disp/font.c)
 
-target_sources_ifdef(CONFIG_ZEPHYR_HDL app PRIVATE src/hdl-disp/display.c)
+# target_sources_ifdef(CONFIG_ZEPHYR_HDL app PRIVATE )
 
 
 zephyr_cc_option(-Wfatal-errors)

@@ -1,12 +1,11 @@
 #include "hidergo_split.dts"
 
-&default_transform {// The matrix transform for this board is 6 columns over because the left half is 6 columns wide according to the matrix.
+&default_transform {
+    // The matrix transform for this board is 6 columns over because the left half is 6 columns wide according to the matrix.
     col-offset = <7>;
 };
 
-
 /{
-
     chosen {
         zmk,mouse = &trackpad;
     };
@@ -17,51 +16,48 @@
         diode-direction = "col2row";
 
         row-gpios
-        = <&gpio0 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0 from the schematic file
-        , <&gpio0 16 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1 from the schematic file
-        , <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2 from the schematic file
-        , <&gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3 from the schematic file
-        , <&gpio0 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 4 from the schematic file
-        , <&gpio0 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 5 from the schematic file
-
-
+        = <&gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0 - Nice!Nano pin D0
+        , <&gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1 - Nice!Nano pin D1
+        , <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2 - Nice!Nano pin D2
+        , <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row 3 - Nice!Nano pin D3
+        , <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 4 - Nice!Nano pin D4
+        , <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 5 - Nice!Nano pin D5
         ;
-        //TODO: need to add col 6 and 7
+
         col-gpios
-        = <&gpio0 29 GPIO_ACTIVE_HIGH> // Col 0 in the schematic
-        , <&gpio0 28 GPIO_ACTIVE_HIGH> // Col 1 in the schematic
-        , <&gpio0 30 GPIO_ACTIVE_HIGH> // Col 2 in the schematic
-        , <&gpio0 31 GPIO_ACTIVE_HIGH> // Col 3 in the schematic
-        , <&gpio0 27 GPIO_ACTIVE_HIGH> // Col 4 in the schematic
-        , <&gpio0 4 GPIO_ACTIVE_HIGH> // Col 5 in the schematic
+        = <&gpio0 29 GPIO_ACTIVE_HIGH>  // Col 0 - Nice!Nano pin D6
+        , <&gpio1 6 GPIO_ACTIVE_HIGH>  // Col 1 - Nice!Nano pin D7
+        , <&gpio0 11 GPIO_ACTIVE_HIGH> // Col 2 - Nice!Nano pin D8
+        , <&gpio1 2 GPIO_ACTIVE_HIGH>  // Col 3 - Nice!Nano pin D9
+        , <&gpio1 1 GPIO_ACTIVE_HIGH>  // Col 4 - Nice!Nano pin D10
+        , <&gpio0 3 GPIO_ACTIVE_HIGH>  // Col 5 - Nice!Nano pin A0
         ;
     };
-
 };
- 
+
 &i2c0 {
-	compatible = "nordic,nrf-twi";
-	sda-pin = <17>;
-	scl-pin = <20>;
+    compatible = "nordic,nrf-twi";
+    sda-pin = <17>;  // Nice!Nano SDA
+    scl-pin = <20>;  // Nice!Nano SCL
 
-	status = "okay";
+    status = "okay";
 
-	trackpad: trackpad@74 {
+    trackpad: trackpad@74 {
         compatible = "azoteq,iqs5xx";
         label = "AZOTEQ_IQS5XX";
         status = "okay";
         reg = <0x74>;
-        dr-gpios = <&gpio0 26 GPIO_ACTIVE_HIGH>;
-	};
+        dr-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>; // Nice!Nano pin A1
+    };
 };
 
 &spi1 {
     status = "okay";
     compatible = "nordic,nrf-spim";
-    sck-pin = <40>  ;
-    mosi-pin = <24>;
-    miso-pin = <23>;
-    cs-gpios = <&gpio0 12 GPIO_ACTIVE_LOW>;
+    sck-pin = <8>;   // Nice!Nano SCLK
+    mosi-pin = <6>;  // Nice!Nano MOSI
+    miso-pin = <26>; // Nice!Nano MISO (P0.26 on Nice!Nano)
+    cs-gpios = <&gpio0 4 GPIO_ACTIVE_LOW>; // Nice!Nano pin A2
 
     epd: il0323n@0 {
         compatible = "gooddisplay,il0323n";
@@ -71,9 +67,9 @@
         height = <128>;
         status = "okay";
         spi-max-frequency = <8000000>;
-        dc-gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;
-        busy-gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
-        reset-gpios = <&gpio0 21 GPIO_ACTIVE_LOW>;
+        dc-gpios = <&gpio0 31 GPIO_ACTIVE_LOW>;   // Nice!Nano pin A3
+        busy-gpios = <&gpio0 5 GPIO_ACTIVE_LOW>;  // Nice!Nano pin A4
+        reset-gpios = <&gpio0 7 GPIO_ACTIVE_LOW>; // Nice!Nano pin A5
     };
 };
 
